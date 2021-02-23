@@ -30,7 +30,7 @@ local_log() {
 }
 
 log() {
-    echo $(date -u)": "$1 >> ${log_file}
+    echo $(date -u)": "$1 >> ${logfile}
 }
 
 # setup
