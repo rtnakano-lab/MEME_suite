@@ -62,6 +62,7 @@ ${R_PATH}/Rscript ${script_dir}/MEME_custom/ame_post.R ${out_dir}/ame_combined_t
 ${R_PATH}/Rscript ${script_dir}/MEME_custom/ame_post.R ${out_dir}/ame_combined_transcription-summary.txt
 
 # copy to biodata
+mkdir -p ${results}
 cp ${out_dir}/ame_combined_translation.txt ${results}/
 cp ${out_dir}/ame_combined_translation-summary.txt ${results}/
 
