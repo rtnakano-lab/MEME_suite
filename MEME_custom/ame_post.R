@@ -15,6 +15,8 @@
 
 rm(list=ls())
 
+library(dplyr, quietly=T, warn.conflicts=F)
+
 # paths
 input <- commandArgs(trailingOnly=T)[1]
 # input <- "/netscratch/dep_psl/grp_psl/ThomasN/MEME_suite/210201project5002rgi/HiSat50/ame_combined_transcription-summary.txt"
@@ -30,6 +32,13 @@ tab$Family <- map$Family[idx]
 
 idx <- is.na(tab$Family)
 tab$Family[idx] <- ""
+
+# remove duplicates
+tab <- tab %>% group_by(Cluster, motif_alt_ID, Family) %>% summarise(rank=min(rank))
+
+# sort
+idx <- order(tab$Cluster, tab$rank)
+tab <- tab[idx, c("Cluster", "rank", "motif_alt_ID", "Family")]
 
 # export
 write.table(tab, file=input, col.names=T, row.names=F, sep="\t", quote=F)

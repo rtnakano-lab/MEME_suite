@@ -36,10 +36,10 @@ clusters=`cat ${out_dir}/cluster.txt | awk '{print $2}' | sort -u | awk 'BEGIN{O
 # initialization
 rm -r -f ${out_dir}/ame_combined_translation_temp.txt
 rm -r -f ${out_dir}/ame_combined_transcription_temp.txt 
-cp ${header}/MEME_header.txt ${out_dir}/ame_combined_translation.txt
-cp ${header}/MEME_header.txt ${out_dir}/ame_combined_transcription.txt
-cp ${header}/MEMEsummary_header.txt ${out_dir}/ame_combined_translation-summary.txt
-cp ${header}/MEMEsummary_header.txt ${out_dir}/ame_combined_transcription-summary.txt
+cp ${script_dir}/MEME_custom/MEME_header.txt ${out_dir}/ame_combined_translation.txt
+cp ${script_dir}/MEME_custom/MEME_header.txt ${out_dir}/ame_combined_transcription.txt
+cp ${script_dir}/MEME_custom/MEMEsummary_header.txt ${out_dir}/ame_combined_translation-summary.txt
+cp ${script_dir}/MEME_custom/MEMEsummary_header.txt ${out_dir}/ame_combined_transcription-summary.txt
 
 # merge
 for cl in ${clusters}; do
@@ -49,8 +49,8 @@ done
 awk '$3!="" {print $0}' ${out_dir}/ame_combined_translation_temp.txt | sort -u >> ${out_dir}/ame_combined_translation.txt
 awk '$3!="" {print $0}' ${out_dir}/ame_combined_transcription_temp.txt | sort -u >> ${out_dir}/ame_combined_transcription.txt
 
-awk '{if(NR>1) print $1 "\t" $5}' ${out_dir}/ame_combined_translation.txt | sort -u >> ${out_dir}/ame_combined_translation-summary.txt
-awk '{if(NR>1) print $1 "\t" $5}' ${out_dir}/ame_combined_transcription.txt | sort -u >> ${out_dir}/ame_combined_transcription-summary.txt
+awk '{if(NR>1) print $1 "\t" $2 "\t" $5}' ${out_dir}/ame_combined_translation.txt | sort -u >> ${out_dir}/ame_combined_translation-summary.txt
+awk '{if(NR>1) print $1 "\t" $2 "\t" $5}' ${out_dir}/ame_combined_transcription.txt | sort -u >> ${out_dir}/ame_combined_transcription-summary.txt
 
 # clean up
 rm -r -f ${out_dir}/ame_combined_translation_temp.txt
