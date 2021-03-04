@@ -17,7 +17,7 @@ rm(list=ls())
 
 # paths
 input <- commandArgs(trailingOnly=T)[1]
-input <- "/netscratch/dep_psl/grp_psl/ThomasN/MEME_suite/210201project5002rgi/HiSat50/ame_combined_transcription-summary.txt"
+# input <- "/netscratch/dep_psl/grp_psl/ThomasN/MEME_suite/210201project5002rgi/HiSat50/ame_combined_transcription-summary.txt"
 map_path <- "/netscratch/dep_psl/grp_psl/ThomasN/resources/Ath_TF_list"
 
 # load
@@ -25,7 +25,7 @@ tab <- read.table(file=input,    header=T, sep="\t", row.names=NULL, stringsAsFa
 map <- read.table(file=map_path, header=T, sep="\t", row.names=NULL, stringsAsFactors=F)
 
 # merge
-idx <- match(tab$motif_alt_ID, map$Gene_ID)
+idx <- match(toupper(tab$motif_alt_ID), toupper(map$Gene_ID))
 tab$Family <- map$Family[idx]
 
 idx <- is.na(tab$Family)
