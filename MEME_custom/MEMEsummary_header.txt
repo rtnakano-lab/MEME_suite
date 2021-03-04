@@ -1,0 +1,1 @@
+Cluster	rank	motif_alt_ID
