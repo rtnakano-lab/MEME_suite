@@ -27,9 +27,6 @@ export results="/biodata/dep_psl/grp_psl/ThomasN/RNAseq2/210201project5002rgi/st
 
 
 # =============== Usually common for all analyses, no need to change =============== #
-# path to the directory with header files
-export header="/biodata/dep_psl/grp_psl/ThomasN/MEME_suite"
-
 # path to the directory you store the ame_ind.sh script
 export script_dir="/biodata/dep_psl/grp_psl/ThomasN/scripts"
 
