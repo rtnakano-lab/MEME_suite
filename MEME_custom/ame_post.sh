@@ -58,8 +58,8 @@ rm -r -f ${out_dir}/ame_combined_transcription_temp.txt
 
 
 # 
-${R_PATH}/Rscript ${script_dir}/MEME_custom/ame_post.R ${out_dir}/ame_combined_translation-summary.txt
-${R_PATH}/Rscript ${script_dir}/MEME_custom/ame_post.R ${out_dir}/ame_combined_transcription-summary.txt
+${R_PATH}/Rscript ${script_dir}/MEME_custom/ame_post.R ${out_dir}/ame_combined_translation-summary.txt ${out_dir}/cluster.txt
+${R_PATH}/Rscript ${script_dir}/MEME_custom/ame_post.R ${out_dir}/ame_combined_transcription-summary.txt ${out_dir}/cluster.txt
 
 # copy to biodata
 mkdir -p ${results}

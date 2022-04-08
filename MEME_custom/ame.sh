@@ -36,7 +36,7 @@ mkdir -p ${out_dir}
 log "START MEME suite custom..."
 
 # create a list of clusters
-cat ${cluster_file} | awk '!/Cluster/ {print $1 "\t" $2}' > ${out_dir}/cluster.txt
+cat ${cluster_file} | awk 'NR>1{print $1 "\t" $2}' > ${out_dir}/cluster.txt
 clusters=`cat ${out_dir}/cluster.txt | awk '{print $2}' | sort -u | awk 'BEGIN{ORS=" "}{print $0}'`
 
 # run the pipeline for each cluster

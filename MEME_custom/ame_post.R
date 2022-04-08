@@ -15,16 +15,21 @@
 
 rm(list=ls())
 
-library(dplyr, quietly=T, warn.conflicts=F)
+library(dplyr,   quietly=T, warn.conflicts=F)
+library(stringr, quietly=T, warn.conflicts=F)
 
 # paths
-input <- commandArgs(trailingOnly=T)[1]
+input_path   <- commandArgs(trailingOnly=T)[1]
+cluster_path <- commandArgs(trailingOnly=T)[2]
+
 # input <- "/netscratch/dep_psl/grp_psl/ThomasN/MEME_suite/210201project5002rgi/HiSat50/ame_combined_transcription-summary.txt"
 map_path <- "/netscratch/dep_psl/grp_psl/ThomasN/resources/Ath_TF_list"
 
+
 # load
-tab <- read.table(file=input,    header=T, sep="\t", row.names=NULL, stringsAsFactors=F)
-map <- read.table(file=map_path, header=T, sep="\t", row.names=NULL, stringsAsFactors=F)
+tab     <- read.table(file=input_path,   header=T, sep="\t", row.names=NULL, stringsAsFactors=F)
+cluster <- read.table(file=cluster_path, header=F, sep="\t", row.names=NULL, stringsAsFactors=F)
+map     <- read.table(file=map_path,     header=T, sep="\t", row.names=NULL, stringsAsFactors=F)
 
 # merge
 idx <- match(toupper(tab$motif_alt_ID), toupper(map$Gene_ID))
@@ -40,5 +45,9 @@ tab <- tab %>% group_by(Cluster, motif_alt_ID, Family) %>% summarise(rank=min(ra
 idx <- order(tab$Cluster, tab$rank)
 tab <- tab[idx, c("Cluster", "rank", "motif_alt_ID", "Family")]
 
+tab$Cluster <- factor(tab$Cluster, levels=unique(cluster$V2))
+idx <- order(tab$Cluster)
+tab <- tab[idx,]
+
 # export
-write.table(tab, file=input, col.names=T, row.names=F, sep="\t", quote=F)
+write.table(tab, file=input_path, col.names=T, row.names=F, sep="\t", quote=F)
